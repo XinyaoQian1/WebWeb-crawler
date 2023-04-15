@@ -20,10 +20,19 @@ html = response.text
 soup = BeautifulSoup(html, "lxml")
 
 # Find all occurrences of the <em> tag in the HTML content
-ps = soup.find_all(name="em")
+em_tags = soup.find_all(name="em")
+
+# Extract the text content of each <em> tag and store it in a list
+em_contents = [em_tag.text for em_tag in em_tags]
 
 # Print the results
-print(ps)
+print(em_contents)
+
+
+# find time elements
+time_tags = soup.find_all("time")
+time_contents = [time_tag.text for time_tag in time_tags]
+print(time_contents)
 
 
 # get the first 1000 char of the response
