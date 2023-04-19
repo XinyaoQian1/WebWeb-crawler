@@ -8,6 +8,7 @@ import requests
 import jieba
 from collections import defaultdict
 from bs4 import BeautifulSoup
+from pyecharts.charts import WordCloud
 
 url = 'https://movie.douban.com/subject/2129039/comments?sort=new_score&status=P'
 # failed request
@@ -42,7 +43,20 @@ for c in short_spans:
     words = jieba.lcut(c)
     count_word_frequencies(words)
 
-word_freq = sorted(word_freq.items(), key=lambda x:x[1], reverse=True)
-print(word_freq)
+
+print(type(word_freq))
 
 
+# 创建WordCloud对象，赋值给wordCloud
+wordCloud = WordCloud()
+
+# 使用add()函数，series_name的值设置为空
+# data_pair的值为字典wordDict转换成由元组组成的列表；
+# 将word_size_range的值设置为[20,80]。
+wordCloud.add(series_name = "", data_pair = word_freq.items(), word_size_range = [20,80])
+
+# 使用wordCloud.render()存储文件，设置文件名为wordcloud.html
+wordCloud.render("wordcloud.html")
+
+# 使用print输出 success
+print("success")
